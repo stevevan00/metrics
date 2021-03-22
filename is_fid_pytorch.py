@@ -101,6 +101,8 @@ import pathlib
 import os
 import sys
 import random
+import imageio
+import cv2
 
 CUR_DIRNAME = os.path.dirname(os.path.abspath(__file__))
 
@@ -376,8 +378,8 @@ if __name__ == '__main__':
         img_list = []
         print('Reading Images from %s ...' % foldername)
         for file in tqdm(files):
-            img = scipy.misc.imread(file, mode='RGB')
-            img = scipy.misc.imresize(img, (299, 299), interp='bilinear')
+            img = imageio.imread(file)
+            img = cv2.resize(img, (299, 299), interpolation=cv2.INTER_LINEAR)
             img = np.cast[np.float32]((-128 + img) / 128.)  # 0~255 -> -1~1
             img = np.expand_dims(img, axis=0).transpose(0, 3, 1, 2)  # NHWC -> NCHW
             img_list.append(img)

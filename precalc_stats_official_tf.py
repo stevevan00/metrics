@@ -15,8 +15,9 @@ import os
 from glob import glob
 import numpy as np
 import fid_official_tf
-from scipy.misc import imread
+# from scipy.misc import imread
 import tensorflow as tf
+import imageio
 
 ########
 # PATHS
@@ -46,7 +47,7 @@ image_list = []
 for ext in ('*.png', '*.jpg', '*.jpeg', '.bmp'):
     image_list.extend(glob(os.path.join(data_path, ext)))
 
-images = np.array([imread(str(fn)).astype(np.float32) for fn in image_list])
+images = np.array([imageio.imread(str(fn)).astype(np.float32) for fn in image_list])
 print("%d images found and loaded" % len(images))
 
 

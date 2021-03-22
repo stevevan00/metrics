@@ -89,6 +89,7 @@ import tensorflow as tf
 import math
 
 from tqdm import tqdm
+import imageio
 
 cur_dirname = os.path.dirname(os.path.abspath(__file__))
 
@@ -263,7 +264,7 @@ if __name__ == '__main__':
         img_list = []
         print('reading images ...')
         for file in tqdm(files):
-            img = scipy.misc.imread(file, mode='RGB')
+            img = imageio.imread(file)
             img_list.append(img)
         random.shuffle(img_list)
         is_mean, is_std = get_inception_score(img_list, splits=10)

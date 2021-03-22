@@ -47,7 +47,8 @@ import numpy as np
 import os
 import tensorflow as tf
 import scipy.misc
-from scipy.misc import imread
+import imageio
+# from scipy.misc import imread
 from scipy import linalg
 import pathlib
 import urllib
@@ -229,7 +230,7 @@ def load_image_batch(files):
     Returns:
     -- A numpy array of dimensions (num_images,hi, wi, 3) representing the image pixel values.
     """
-    return np.array([imread(str(fn)).astype(np.float32) for fn in files])
+    return np.array([imageio.imread(str(fn)).astype(np.float32) for fn in files])
 
 
 def get_activations_from_files(files, sess, batch_size=50, verbose=False):
@@ -329,7 +330,7 @@ def _handle_path(path, sess, low_profile=False):
             m, s = calculate_activation_statistics_from_files(files, sess)
         else:
             # x = np.array([scipy.misc.imresize(imread(str(fn), mode='RGB'), (299, 299), interp='bilinear').astype(np.float32) for fn in files])
-            x = np.array([imread(str(fn)).astype(np.float32) for fn in files])
+            x = np.array([imageio.imread(str(fn)).astype(np.float32) for fn in files])
             m, s = calculate_activation_statistics(x, sess)
             del x  # clean up memory
     return m, s
